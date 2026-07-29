@@ -1,7 +1,8 @@
 import type {
   Entry, EntryCreate, EntryUpdate,
   AuthResponse, User,
-  PLStatement, BalanceSheet, AuditReport, DashboardSummary,
+  PLStatement, BalanceSheet, AuditReport, DashboardSummary, TrialBalanceReport,
+  CashFlowReport, RatioReport, RecurringReport, CategoryConsistencyReport, YoYReport,
   ChatRequest, ChatResponse, ChatMessage,
 } from "@/types";
 
@@ -71,6 +72,40 @@ export const reports = {
     return request<AuditReport>(`/reports/audit${q}`, { method: "POST" });
   },
   dashboard: () => request<DashboardSummary>("/reports/dashboard"),
+  trialBalance: (start?: string, end?: string) => {
+    const q = new URLSearchParams();
+    if (start) q.set("start_date", start);
+    if (end) q.set("end_date", end);
+    const qs = q.toString();
+    return request<TrialBalanceReport>(`/reports/trial-balance${qs ? "?" + qs : ""}`);
+  },
+  cashFlow: (start?: string, end?: string) => {
+    const q = new URLSearchParams();
+    if (start) q.set("start_date", start);
+    if (end) q.set("end_date", end);
+    const qs = q.toString();
+    return request<CashFlowReport>(`/reports/cash-flow${qs ? "?" + qs : ""}`);
+  },
+  ratios: (start?: string, end?: string) => {
+    const q = new URLSearchParams();
+    if (start) q.set("start_date", start);
+    if (end) q.set("end_date", end);
+    const qs = q.toString();
+    return request<RatioReport>(`/reports/ratios${qs ? "?" + qs : ""}`);
+  },
+  recurring: (months?: number) => {
+    const q = months ? `?months=${months}` : "";
+    return request<RecurringReport>(`/reports/recurring${q}`);
+  },
+  categoryConsistency: () => request<CategoryConsistencyReport>("/reports/category-consistency"),
+  yoy: (category?: string, yearA?: number, yearB?: number) => {
+    const q = new URLSearchParams();
+    if (category) q.set("category", category);
+    if (yearA) q.set("year_a", String(yearA));
+    if (yearB) q.set("year_b", String(yearB));
+    const qs = q.toString();
+    return request<YoYReport>(`/reports/yoy${qs ? "?" + qs : ""}`);
+  },
 };
 
 // Chat

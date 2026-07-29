@@ -18,7 +18,7 @@ class ChatMessageOut(BaseModel):
     id: UUID
     role: str
     content: str
-    tool_calls: dict | None
+    tool_calls: list | dict | None
     created_at: datetime
 
     model_config = {"from_attributes": True}

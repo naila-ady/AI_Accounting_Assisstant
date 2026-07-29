@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard, ArrowUpFromLine, ArrowDownToLine, BookOpen,
   BarChart3, Scale, ShieldCheck, MessageSquareText, LogOut, Menu, X,
+  Receipt, TrendingUp, Repeat, CheckCircle2, GitCompare, Wallet,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -17,6 +18,12 @@ const links = [
   { href: "/reports/pl", label: "P&L Statement", icon: BarChart3 },
   { href: "/reports/balance-sheet", label: "Balance Sheet", icon: Scale },
   { href: "/reports/audit", label: "Audit", icon: ShieldCheck },
+  { href: "/reports/trial-balance", label: "Trial Balance", icon: Receipt },
+  { href: "/reports/cash-flow", label: "Cash Flow", icon: TrendingUp },
+  { href: "/reports/ratios", label: "Ratios", icon: BarChart3 },
+  { href: "/reports/recurring", label: "Recurring", icon: Repeat },
+  { href: "/reports/category-consistency", label: "Category Check", icon: CheckCircle2 },
+  { href: "/reports/yoy", label: "YoY Comparison", icon: GitCompare },
   { href: "/chat", label: "AI Chat", icon: MessageSquareText },
 ];
 

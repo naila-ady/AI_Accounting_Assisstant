@@ -98,6 +98,74 @@ export interface AuditReport {
   summary: SeveritySummary;
 }
 
+export interface TrialBalanceRow {
+  category: string;
+  debit: number;
+  credit: number;
+}
+
+export interface TrialBalanceReport {
+  rows: TrialBalanceRow[];
+  total_debit: number;
+  total_credit: number;
+  balanced: boolean;
+  note: string;
+}
+
+export interface CashFlowReport {
+  period: { start: string; end: string };
+  cash_in: number;
+  cash_out: number;
+  net_cash_flow: number;
+  note: string;
+}
+
+export interface RatioReport {
+  period: { start: string; end: string };
+  profit_margin: number | null;
+  expense_to_income_ratio: number | null;
+  total_income: number;
+  total_expenses: number;
+  net_profit: number;
+  note: string;
+}
+
+export interface RecurringRow {
+  category: string;
+  avg_amount: number;
+  months_seen: string[];
+  entry_ids: string[];
+}
+
+export interface RecurringReport {
+  recurring: RecurringRow[];
+  note: string;
+}
+
+export interface CategoryDuplicate {
+  category_a: string;
+  category_b: string;
+  similarity_score: number;
+}
+
+export interface CategoryConsistencyReport {
+  possible_duplicates: CategoryDuplicate[];
+}
+
+export interface YoYRow {
+  category: string;
+  year_a_total: number;
+  year_b_total: number;
+  change_amount: number;
+  change_percent: number | null;
+}
+
+export interface YoYReport {
+  rows: YoYRow[];
+  year_a: number;
+  year_b: number;
+}
+
 export interface DashboardSummary {
   total_income: number;
   total_expenses: number;
@@ -110,7 +178,7 @@ export interface DashboardSummary {
 }
 
 export interface ChatMessage {
-  id: number;
+  id: string | number;
   role: "user" | "assistant" | "system";
   content: string;
   created_at: string;
@@ -118,9 +186,10 @@ export interface ChatMessage {
 
 export interface ChatRequest {
   message: string;
+  history?: { role: string; content: string }[];
 }
 
 export interface ChatResponse {
   reply: string;
-  message_id: number;
+  tool_calls?: Record<string, unknown>[] | null;
 }

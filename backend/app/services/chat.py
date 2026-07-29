@@ -10,7 +10,11 @@ from app.models.chat_message import ChatMessage
 from app.schemas.chat import ChatMessageOut, ChatResponse
 from app.schemas.entry import EntryCreate, EntryUpdate
 from app.services.entries import create_entry, get_entry, list_categories, list_entries, update_entry
-from app.services.reports import generate_balance_sheet, generate_pl, run_monthly_audit
+from app.services.reports import (
+    check_category_consistency, detect_recurring, generate_balance_sheet,
+    generate_cash_flow, generate_pl, generate_ratios, generate_trial_balance,
+    generate_yoy, run_monthly_audit,
+)
 
 SYSTEM_PROMPT = """You are an AI accounting assistant for a small business. You help with recording expenses and income, answering questions about financial data, generating reports (P&L, balance sheet), and running audits.
 
@@ -38,7 +42,9 @@ async def process_chat_message(
             tool_calls=None,
         )
 
-    client = openai.AsyncOpenAI(api_key=settings.OPENAI_API_KEY)
+    extras = settings.__pydantic_extra__ or {}
+    base_url = extras.get("ai_api_url") or "https://api.openai.com/v1"
+    client = openai.AsyncOpenAI(api_key=settings.OPENAI_API_KEY, base_url=base_url)
 
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
 
@@ -145,6 +151,40 @@ async def _execute_tool(db: AsyncSession, tool_name: str, args_json: str) -> str
         elif tool_name == "generate_balance_sheet":
             as_of_date = date.fromisoformat(args["as_of_date"])
             report = await generate_balance_sheet(db, as_of_date)
+            return json.dumps(report.model_dump(), default=str)
+
+        elif tool_name == "trial_balance":
+            from_date = date.fromisoformat(args["from_date"])
+            to_date = date.fromisoformat(args["to_date"])
+            report = await generate_trial_balance(db, from_date, to_date)
+            return json.dumps(report.model_dump(), default=str)
+
+        elif tool_name == "cash_flow":
+            from_date = date.fromisoformat(args["from_date"])
+            to_date = date.fromisoformat(args["to_date"])
+            report = await generate_cash_flow(db, from_date, to_date)
+            return json.dumps(report.model_dump(), default=str)
+
+        elif tool_name == "ratio_analysis":
+            from_date = date.fromisoformat(args["from_date"])
+            to_date = date.fromisoformat(args["to_date"])
+            report = await generate_ratios(db, from_date, to_date)
+            return json.dumps(report.model_dump(), default=str)
+
+        elif tool_name == "recurring_detection":
+            months = args.get("months", 3)
+            report = await detect_recurring(db, months)
+            return json.dumps(report.model_dump(), default=str)
+
+        elif tool_name == "category_consistency":
+            report = await check_category_consistency(db)
+            return json.dumps(report.model_dump(), default=str)
+
+        elif tool_name == "yoy_comparison":
+            category = args.get("category")
+            year_a = int(args["year_a"])
+            year_b = int(args["year_b"])
+            report = await generate_yoy(db, category, year_a, year_b)
             return json.dumps(report.model_dump(), default=str)
 
         elif tool_name == "run_audit":

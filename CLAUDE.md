@@ -117,6 +117,7 @@ README.md
 - [x] Entries CRUD + service layer: DONE
 - [x] Reports (P&L, balance sheet, audit): DONE
 - [x] AI agent + tools: DONE
+- [x] Additional CA reports (trial balance, cash flow, ratios, recurring, category consistency, YoY): DONE
 - [ ] Frontend: being generated via Lovable separately —
 - [x] Docker + docker-compose: DONE
 - [ ] Deployment (Vercel + Railway/Render): pending

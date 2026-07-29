@@ -11,7 +11,14 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: str = ""
     OPENAI_MODEL: str = "gpt-4o-mini"
 
-    model_config = {"env_file": ".env", "extra": "ignore"}
+    model_config = {"env_file": ".env", "extra": "allow"}
+
+    def model_post_init(self, __context) -> None:
+        extras = self.__pydantic_extra__ or {}
+        if not self.OPENAI_API_KEY:
+            self.OPENAI_API_KEY = extras.get("open_ai_api_key", "") or extras.get("ai_api_key", "")
+        if extras.get("aimodel"):
+            self.OPENAI_MODEL = extras["aimodel"]
 
     @property
     def async_database_url(self) -> str:
