@@ -190,16 +190,22 @@ async def run_monthly_audit(db: AsyncSession, month: str | None) -> AuditReport:
     )
     entries_list = list(result.scalars().all())
 
+    def _flag(entry: Entry, reason: str, severity: str) -> AuditFlagOut:
+        return AuditFlagOut(
+            id=uuid_lib.uuid4(),
+            entry_id=entry.id,
+            category=entry.category or "",
+            flag_reason=reason,
+            severity=severity,
+            created_at=datetime.now(),
+        )
+
     flags: list[AuditFlagOut] = []
-    now_ts = datetime.now()
 
     # Rule 1: Missing/empty category → high
     for e in entries_list:
         if not e.category or e.category.strip() == "":
-            flags.append(AuditFlagOut(
-                id=e.id, entry_id=e.id, category="", flag_reason="Missing or empty category",
-                severity="high", created_at=now_ts,
-            ))
+            flags.append(_flag(e, "Missing or empty category", "high"))
 
     # Rule 2: Amount > 3x category average
     cat_entries: dict[str, list[Entry]] = defaultdict(list)
@@ -215,11 +221,7 @@ async def run_monthly_audit(db: AsyncSession, month: str | None) -> AuditReport:
             amt = Decimal(str(e.amount))
             if amt > threshold:
                 if not any(f.entry_id == e.id for f in flags):
-                    flags.append(AuditFlagOut(
-                        id=e.id, entry_id=e.id, category=e.category,
-                        flag_reason=f"Amount {amt} exceeds 3x category average ({avg:.2f})",
-                        severity="medium", created_at=now_ts,
-                    ))
+                    flags.append(_flag(e, f"Amount {amt} exceeds 3x category average ({avg:.2f})", "medium"))
 
     # Rule 3: Duplicate (same category + amount + entry_date)
     seen: dict[tuple, list[Entry]] = defaultdict(list)
@@ -230,11 +232,7 @@ async def run_monthly_audit(db: AsyncSession, month: str | None) -> AuditReport:
         if len(dupes) > 1:
             for e in dupes:
                 if not any(f.entry_id == e.id for f in flags):
-                    flags.append(AuditFlagOut(
-                        id=e.id, entry_id=e.id, category=e.category,
-                        flag_reason="Possible duplicate: same category, amount, and date",
-                        severity="low", created_at=now_ts,
-                    ))
+                    flags.append(_flag(e, "Possible duplicate: same category, amount, and date", "low"))
 
     # Rule 4: Round-number large expense (> 50,000, ends in 000)
     for e in entries_list:
@@ -243,11 +241,7 @@ async def run_monthly_audit(db: AsyncSession, month: str | None) -> AuditReport:
         amt = Decimal(str(e.amount))
         if amt > Decimal("50000") and amt % Decimal("1000") == Decimal("0"):
             if not any(f.entry_id == e.id for f in flags):
-                flags.append(AuditFlagOut(
-                    id=e.id, entry_id=e.id, category=e.category,
-                    flag_reason="Large round-number expense — verify",
-                    severity="low", created_at=now_ts,
-                ))
+                flags.append(_flag(e, "Large round-number expense — verify", "low"))
 
     # Persist
     await db.execute(delete(AuditFlag).where(AuditFlag.period == month))
