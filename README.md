@@ -85,7 +85,7 @@ requirement.
 **Status: pending — must still be created in draw.io/Lucidchart before submission.**
 
 ## Live deployment
-- **Frontend (Vercel):** `https://your-app.vercel.app` _(replace with your Vercel URL)_
+- **Frontend (Vercel):** `https://ai-accounting-assisstant-5dgb.vercel.app`
 - **Backend API:** `https://your-backend.railway.app` _(replace with your Railway/Render URL)_
 - **Research paper (Hugging Face):** `https://huggingface.co/your-username/your-paper` _(replace with your Hugging Face URL)_
 
@@ -127,7 +127,7 @@ repo is permitted to read or access them (see `CLAUDE.md` security rule).
 ## Deliverables checklist
 | # | Deliverable | Location / Link |
 |---|---|---|
-| 1 | Live deployment link | **Vercel:** `https://your-app.vercel.app` _(replace with your URL)_ |
+| 1 | Live deployment link | **Vercel:** `https://ai-accounting-assisstant-5dgb.vercel.app` |
 | 2 | Research paper (PDF) | **Hugging Face:** `https://huggingface.co/your-username/your-paper` _(replace with your URL)_ |
 | 3 | Workflow diagram URL | `specs/workflow/workflow-link.md` — pending |
 | 4 | GitHub repo URL | this repo |

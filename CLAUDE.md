@@ -125,7 +125,7 @@ README.md
 - [ ] AI chat history export for submission: done — `chat-history/chathistory.md`
 
 ## 11. Deliverables checklist (for final submission)
-1. Live deployment link — **Vercel:** `https://your-app.vercel.app` _(fill in)_
+1. Live deployment link — **Vercel:** `https://ai-accounting-assisstant-5dgb.vercel.app`
 2. Research paper (PDF) — **Hugging Face:** `https://huggingface.co/your-username/your-paper` _(fill in)_
 3. Workflow diagram URL (Lucidchart/draw.io) — pending
 4. GitHub repo URL (feature branches, proper commits, README, /specs)
