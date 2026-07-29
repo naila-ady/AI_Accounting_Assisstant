@@ -63,7 +63,7 @@ export default function ChatPage() {
             <Sparkles className="h-5 w-5 text-white" />
           </div>
           <div>
-            <h1 className="text-lg font-semibold text-slate-900">AI Account Assistant</h1>
+            <h1 className="text-lg font-semibold text-slate-900"> NADY'S AI Account Assistant</h1>
             <p className="text-xs text-slate-400">Ask anything about your finances</p>
           </div>
         </div>
