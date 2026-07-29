@@ -93,7 +93,7 @@ export default function AuditPage() {
                     <Td><Badge variant={severityColor[f.severity]}>{f.severity}</Badge></Td>
                     <Td>{f.category}</Td>
                     <Td><span className="text-xs font-mono">{f.entry_id?.slice(0, 8)}</span></Td>
-                    <Td className="max-w-[300px]">{f.flag_reason}</Td>
+                    <Td className="max-w-75">{f.flag_reason}</Td>
                     <Td className="text-slate-500 whitespace-nowrap">{formatDateTime(f.created_at)}</Td>
                   </Tr>
                 ))}

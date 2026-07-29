@@ -59,7 +59,7 @@ export default function ChatPage() {
       <div className="flex flex-col h-[calc(100vh-6rem)] max-w-4xl mx-auto w-full">
         {/* Header */}
         <div className="flex items-center gap-3 px-1 py-4 border-b border-slate-100">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+          <div className="w-9 h-9 rounded-xl bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
             <Sparkles className="h-5 w-5 text-white" />
           </div>
           <div>

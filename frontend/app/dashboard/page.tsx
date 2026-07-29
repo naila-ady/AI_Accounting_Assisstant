@@ -123,7 +123,7 @@ export default function DashboardPage() {
                     <Td className="text-slate-500">{formatDate(e.entry_date)}</Td>
                     <Td><Badge variant={e.entry_type}>{e.entry_type}</Badge></Td>
                     <Td>{e.category}</Td>
-                    <Td className="max-w-[200px] truncate">{e.description}</Td>
+                    <Td className="max-w-50 truncate">{e.description}</Td>
                     <Td className={`text-right font-medium ${e.entry_type === "income" ? "text-emerald-600" : "text-rose-600"}`}>
                       {e.entry_type === "income" ? "+" : "-"}{formatCurrency(e.amount)}
                     </Td>

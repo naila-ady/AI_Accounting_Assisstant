@@ -61,7 +61,7 @@ export default function RecordsPage() {
       <Card className="mb-6">
         <CardContent className="p-4">
           <div className="flex flex-wrap gap-3 items-end">
-            <div className="flex-1 min-w-[200px]">
+            <div className="flex-1 min-w-50">
               <Select
                 options={[
                   { value: "", label: "All Types" },
@@ -72,7 +72,7 @@ export default function RecordsPage() {
                 onChange={(e) => setTypeFilter(e.target.value)}
               />
             </div>
-            <div className="flex-1 min-w-[200px]">
+            <div className="flex-1 min-w-200">
               <Input
                 placeholder="Filter by category..."
                 value={categoryFilter}
@@ -110,7 +110,7 @@ export default function RecordsPage() {
                     <Td className="text-slate-500 whitespace-nowrap">{formatDate(e.entry_date)}</Td>
                     <Td><Badge variant={e.entry_type}>{e.entry_type}</Badge></Td>
                     <Td>{e.category}</Td>
-                    <Td className="max-w-[200px] truncate" title={e.description}>{e.description}</Td>
+                    <Td className="max-w-50 truncate" title={e.description}>{e.description}</Td>
                     <Td className="capitalize">{e.payment_method}</Td>
                     <Td><Badge variant={e.source}>{e.source}</Badge></Td>
                     <Td className={`text-right font-medium ${e.entry_type === "income" ? "text-emerald-600" : "text-rose-600"}`}>

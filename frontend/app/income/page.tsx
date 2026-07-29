@@ -140,7 +140,7 @@ export default function IncomePage() {
                   <Tr key={e.id}>
                     <Td className="text-slate-500">{formatDate(e.entry_date)}</Td>
                     <Td><Badge variant="income">{e.category}</Badge></Td>
-                    <Td className="max-w-[250px] truncate">{e.description}</Td>
+                    <Td className="max-w-62.5 truncate">{e.description}</Td>
                     <Td className="capitalize">{e.payment_method}</Td>
                     <Td><Badge variant={e.source}>{e.source}</Badge></Td>
                     <Td className="text-right font-medium text-emerald-600">+{formatCurrency(e.amount)}</Td>

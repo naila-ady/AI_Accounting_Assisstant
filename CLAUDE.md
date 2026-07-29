@@ -118,19 +118,19 @@ README.md
 - [x] Reports (P&L, balance sheet, audit): DONE
 - [x] AI agent + tools: DONE
 - [x] Additional CA reports (trial balance, cash flow, ratios, recurring, category consistency, YoY): DONE
-- [ ] Frontend: being generated via Lovable separately —
+- [x] Frontend (Next.js App Router, Tailwind, all pages): DONE
 - [x] Docker + docker-compose: DONE
-- [ ] Deployment (Vercel + Railway/Render): pending
-- [ ] README with setup instructions: pending
-- [ ] AI chat history export for submission: pending
+- [ ] Deployment (Vercel + Railway/Render): pending — set `NEXT_PUBLIC_API_URL` in Vercel env vars
+- [ ] README with setup instructions: done — placeholders added for Vercel + Hugging Face URLs
+- [ ] AI chat history export for submission: done — `chat-history/chathistory.md`
 
 ## 11. Deliverables checklist (for final submission)
-1. Live deployment link
-2. Research paper (PDF) — done
-3. Workflow diagram URL (Lucidchart/draw.io)
+1. Live deployment link — **Vercel:** `https://your-app.vercel.app` _(fill in)_
+2. Research paper (PDF) — **Hugging Face:** `https://huggingface.co/your-username/your-paper` _(fill in)_
+3. Workflow diagram URL (Lucidchart/draw.io) — pending
 4. GitHub repo URL (feature branches, proper commits, README, /specs)
 5. Docker setup (Dockerfile + docker-compose)
-6. AI chat history (all prompts used across any AI tool during development)
+6. AI chat history (all prompts used across any AI tool during development) — `chat-history/chathistory.md`
 
 ## 12. Security — hard rule
 Never read, open, print, log, or access `.env`, `.env.local`, or any secrets/credentials file in
