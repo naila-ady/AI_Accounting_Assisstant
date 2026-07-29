@@ -111,13 +111,14 @@ README.md
 - [x] Phase 1 — Research paper: DONE
 - [x] Phase 2 — Specs (SDD): DONE, all 9 files in /specs
 - [ ] Workflow diagram (draw.io): pending, link to be added here once created
-- [ ] Database schema implementation (SQLAlchemy models + migrations): pending
-- [ ] FastAPI backend (routers, services, Pydantic schemas): pending
-- [ ] Auth (JWT signup/login): pending
-- [ ] AI agent + tools: pending
+- [x] Project setup (uv, deps, folder structure, .env.example, .gitignore): DONE
+- [x] Database schema implementation (SQLAlchemy models + migrations): DONE
+- [x] Auth (JWT signup/login): DONE
+- [x] Entries CRUD + service layer: DONE
+- [x] Reports (P&L, balance sheet, audit): DONE
+- [x] AI agent + tools: DONE
 - [ ] Frontend: being generated via Lovable separately —
-- [ ] Reports (P&L, balance sheet, audit): pending
-- [ ] Docker + docker-compose: pending
+- [x] Docker + docker-compose: DONE
 - [ ] Deployment (Vercel + Railway/Render): pending
 - [ ] README with setup instructions: pending
 - [ ] AI chat history export for submission: pending
