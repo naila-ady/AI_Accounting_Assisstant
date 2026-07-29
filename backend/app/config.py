@@ -1,3 +1,5 @@
+from urllib.parse import urlencode, urlparse, urlunparse
+
 from pydantic_settings import BaseSettings
 
 
@@ -18,6 +20,9 @@ class Settings(BaseSettings):
             url = url.replace("postgresql://", "postgresql+asyncpg://", 1)
         elif url.startswith("postgresql+psycopg2://"):
             url = url.replace("postgresql+psycopg2://", "postgresql+asyncpg://", 1)
+        # asyncpg doesn't support most query params (sslmode, channel_binding, etc.) — strip them
+        parsed = urlparse(url)
+        url = urlunparse(parsed._replace(query=""))
         return url
 
 
